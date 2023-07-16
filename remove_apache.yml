@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+
+  - name: install apache2 package
+    apt:
+      name: apache2
+      state: absent
+
+  - name: add php for apache
+    apt:
+      name: libapache2-mod-php
+      state: absent
+
+
