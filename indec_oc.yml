@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+
+  - name: install apache2 package
+    apt:
+      name: apache2
+      state: latest
+
+  - name: add php for apache
+    apt:
+      name: libapache2-mod-php
+      state: latest
+      when: ansible_distribution in ["Ubuntu", "Centos"]
+      when: ansible_distribution =="Ubuntu"
+      when: ansible_distribution_version == "Ubuntu"
