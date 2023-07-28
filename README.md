@@ -31,4 +31,90 @@ this is awesome ansible repository!!!!!
 #
 #
 #
+# video 9
+#
+#create groups :
+# inventory file
+#      ***
+#[web_servers] -   group 
+#172.17.0.2
+#      ***
+#
+#site.yml    // any name of a file .yml
+#    ***
+#
+#- hosts: all
+#  pre_tasks:             // it will done firstly for all hosts 
+#  - name:  
+#    apt:
+#     update_only: yes
+#     update_cache: yes   //additional tasks 
+#     upgrade: dist
+#    ***
+#  
+#
+# video 10
+#     SITE.YML
+#- name:
+#    tags: always , centos,db,ubuntu      // adding tags give us opportunity to choose what to install,update or so on. 
+#    apt:
+#     update_only: yes
+#     update_cache: yes   //additional tasks 
+#     upgrade: dist
+#    *** COMMAND
+#~/ansible$: ansible-playbook --list-tags site.yml   // it will reveal all tags we can choose 
+#       *** 
+#        COMMAND
+#~/ansible$: ansible-playbook --tags"apache,db," site.yml    // here we choose tags "apache,db" to be executed 
+#          ***
+#
+# video 11  COPY FILES
+#   SITE.YML
+#  ***
+# - name: copy html file for site 
+#   tags: ubunty, db
+#   copy:
+#     src: default_site.html
+#     dest: /var/www/html/index.html      // after coping file has a new name index.html   
+#     owner: root
+#     group: root
+#     mode: 0644
+#    ***
+# video 12  Managing services
+#       ****
+# - name: start and enable httpd (CentOS)
+#
+#
+#     tags: apache,centos,httpd
+#     service:
+#       name: httpd
+#
+#      state: started              /// start service
+#                   
+#      enabled: yes                ///  all system starts and this service atoumatically starts
+#     when: ansible_distribution == "CentOS"
+#
+#         ******
+#
+#  - name: change e-mail address for admin
+#     tags: apache,centos,httpd
+#     lineinfile:
+#       path: /etc/httpd/conf/httpd.conf    // make changes in the line in the file
+#       regexp: '^ServerAdmin'                 // line inthe file which we change
+#
+#       line: ServerAdmin somebody@somewhere.net // new line 
+#     when: ansible_distribution == "CentOS"
+#     register: httpd     // variable which indicates to change 
+# 
+#   - name: restart httpd (CentOS)
+#     tags: apache,centos,httpd
+#     service:
+#       name: httpd
+#       state: restarted        // it restarts the service    
+#     when: httpd.changed    // indication to change 
+#
+#            *****
+#
+#
+#
 #
